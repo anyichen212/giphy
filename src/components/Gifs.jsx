@@ -12,7 +12,7 @@ const Gifs = (props) => {
 
     useEffect(() => {
         async function fetchTrend(){
-            await axios.get(`http://api.giphy.com/v1/gifs/trending?api_key=${api_key}`)
+            await axios.get(`https://api.giphy.com/v1/gifs/trending?api_key=${api_key}`)
             .then(response => setGifList(response.data.data));
 
             setTrendList(gifList);
@@ -26,7 +26,7 @@ const Gifs = (props) => {
         async function fetchSearch(){
         try {
             //fetch data everytime Search is click, then set it as the gifList array
-            await axios.get(`http://api.giphy.com/v1/gifs/search?q=${props.keyWord}&api_key=${api_key}`)
+            await axios.get(`https://api.giphy.com/v1/gifs/search?q=${props.keyWord}&api_key=${api_key}`)
             .then(response => setSearchList(response.data.data));
             setIsLoading(false);
             //console.log(response.data);
@@ -62,7 +62,7 @@ const Gifs = (props) => {
         setIsLoading(true);
 
         //
-        await axios.get(`http://api.giphy.com/v1/gifs/random?api_key=${api_key}`)
+        await axios.get(`https://api.giphy.com/v1/gifs/random?api_key=${api_key}`)
         .then(response => setGifList([response.data.data]));
 
         setIsLoading(false);
