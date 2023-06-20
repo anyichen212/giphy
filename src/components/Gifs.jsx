@@ -67,16 +67,28 @@ const Gifs = (props) => {
 
         setIsLoading(false);
     };
-    
+
+    const clickFilter = async(e) => {
+        setIsLoading(true);
+
+        //
+        await axios.get(`https://api.giphy.com/v1/gifs/search?q=${e.currentTarget.value}&api_key=${api_key}`)
+        .then(response => setGifList(response.data.data));
+
+        setIsLoading(false);
+    };
     
     if(isLoading){
         return (
             <div>
-                <input type="submit" value="Search" onClick={clickSearch}></input>
+                <input className="submit" type="submit" value="Search" onClick={clickSearch}></input>
     
                 <div>
                     <button onClick={clickTrend}>Trending</button>
                     <button onClick={clickRandom}>Random Gif</button>
+                    <button onClick={clickFilter} value="grumpy-cat">Cats</button>
+                    <button onClick={clickFilter} value="dog">Dogs</button>
+                    <button onClick={clickFilter} value="red-panda">Pandas</button>
                 </div>
     
                 <div style={{fontSize: "30px" }}>Loading...</div>
@@ -92,6 +104,9 @@ const Gifs = (props) => {
             <div>
                 <button onClick={clickTrend}>Trending</button>
                 <button onClick={clickRandom}>Random Gif</button>
+                <button onClick={clickFilter} value="grumpy-cat">Cats</button>
+                <button onClick={clickFilter} value="dog">Dogs</button>
+                <button onClick={clickFilter} value="red-panda">Pandas</button>
             </div>
 
             <div className="gifs">{gifList.map((gif,index)=>{
