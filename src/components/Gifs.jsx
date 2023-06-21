@@ -10,6 +10,7 @@ const Gifs = (props) => {
     const[isLoading, setIsLoading] = useState(true);
     const api_key = "XpeDWbQQyyU3qdmUxQVyNxfCq0DHFKA4";
 
+    //fetch for trend gif and save it in trendList
     useEffect(() => {
         async function fetchTrend(){
             await axios.get(`https://api.giphy.com/v1/gifs/trending?api_key=${api_key}`)
@@ -22,6 +23,8 @@ const Gifs = (props) => {
         setIsLoading(false);
       }, [trend]);
 
+    //fetch for search key gif and save it in searchList
+    //updates everytime a value is enter in the search bar
     useEffect(() => {
         async function fetchSearch(){
         try {
@@ -40,12 +43,13 @@ const Gifs = (props) => {
       }, [searchList]);
       
     
-
+    //search onClick that show an array of gif with the search keyword
     const clickSearch = () =>{
         setIsLoading(true);
         setGifList(searchList);
     };
 
+    //trend onClick that shows trendList
     const clickTrend = () => {
         console.log(trendList);
         setIsLoading(true);
@@ -58,10 +62,11 @@ const Gifs = (props) => {
         setIsLoading(false);
     };
 
+    //shows when Random is click
     const clickRandom = async() => {
         setIsLoading(true);
 
-        //
+        //fetch for 1 random gif
         await axios.get(`https://api.giphy.com/v1/gifs/random?api_key=${api_key}`)
         .then(response => setGifList([response.data.data]));
 
@@ -71,7 +76,7 @@ const Gifs = (props) => {
     const clickFilter = async(e) => {
         setIsLoading(true);
 
-        //
+        //fetch for an array of gif from a filter word
         await axios.get(`https://api.giphy.com/v1/gifs/search?q=${e.currentTarget.value}&api_key=${api_key}`)
         .then(response => setGifList(response.data.data));
 
